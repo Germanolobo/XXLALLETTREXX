@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lallettre | Alta Perfumaria</title>
+    <!-- Fontes de Luxo: Cinzel para títulos e Montserrat para textos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET E ESTILOS GERAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- PALETA DE CORES --- */
+        :root {
+            --terracota: #b33c22;
+            --preto: #0a0a0a;
+            --preto-suave: #141414;
+            --branco: #ffffff;
+            --dourado: #dfba73;
+        }
+
+        /* --- TELA DE ABERTURA (SUSPENSE) --- */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--preto);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-in-out, visibility 1.5s;
+        }
+        .suspense-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--branco);
+            text-align: center;
+            max-width: 600px;
+            padding: 0 20px;
+            letter-spacing: 4px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInText 3s forwards ease-in-out;
+        }
+        .suspense-subtext {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInText 3s forwards ease-in-out;
+            animation-delay: 1.5s;
+        }
+        .enter-btn {
+            margin-top: 40px;
+            background: transparent;
+            border: 1px solid var(--branco);
+            color: var(--branco);
+            padding: 12px 35px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.4s ease;
+            animation: fadeInText 2s forwards ease-in-out;
+            animation-delay: 2.5s;
+        }
+        .enter-btn:hover {
+            background-color: var(--branco);
+            color: var(--preto);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes fadeInText {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- CONTEÚDO PRINCIPAL (REVELAÇÃO) --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        /* --- APRESENTAÇÃO DA LOGOMARCA --- */
+        .hero-section {
+            height: 100vh;
+            background: radial-gradient(circle, var(--preto-suave) 30%, var(--terracota) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo-container {
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 30px;
+            filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.6));
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1.5s ease-out;
+        }
+        .logo-container.reveal {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+        .hero-tagline {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            color: var(--branco);
+            text-transform: uppercase;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 2s ease-out 1s;
+        }
+        .hero-tagline.reveal {
+            opacity: 0.9;
+        }
+
+        /* Seta para rolar */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* --- SEÇÃO DE PRODUTOS --- */
+        .products-section {
+            background-color: var(--preto);
+            padding: 100px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 80px;
+            color: var(--branco);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background-color: var(--terracota);
+            margin: 20px auto 0 auto;
+        }
+        .product-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 120px;
+        }
+        .product-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .product-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .product-image {
+            flex: 1;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background-color: #000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        .product-image:hover img {
+            transform: scale(1.03);
+        }
+        .product-info {
+            flex: 1;
+            padding: 20px;
+        }
+        .product-number {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            color: rgba(179, 60, 34, 0.3);
+            line-height: 1;
+            margin-bottom: -10px;
+        }
+        .product-name {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--branco);
+        }
+        .product-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .product-cta {
+            display: inline-block;
+            background-color: transparent;
+            border: 1px solid var(--terracota);
+            color: var(--branco);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .product-cta:hover {
+            background-color: var(--terracota);
+            box-shadow: 0 0 15px rgba(179, 60, 34, 0.5);
+        }
+
+        /* --- RODAPÉ (CONTATO) --- */
+        footer {
+            background-color: #050505;
+            border-top: 1px solid rgba(179, 60, 34, 0.2);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .footer-logo {
+            max-width: 200px;
+            margin: 0 auto 40px auto;
+            opacity: 0.7;
+        }
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+        }
+        .contact-container {
+            margin-bottom: 40px;
+        }
+        .contact-item {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            letter-spacing: 1px;
+            color: #bbb;
+        }
+        .contact-item a {
+            color: var(--branco);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contact-item a:hover {
+            color: var(--terracota);
+        }
+        .whatsapp-footer-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: transparent;
+            border: 1px solid var(--branco);
+            color: var(--branco);
+            padding: 15px 40px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-footer-btn:hover {
+            background-color: var(--branco);
+            color: var(--preto);
+        }
+        .copyright {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 60px;
+            letter-spacing: 1px;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            .product-row, .product-row:nth-child(even) {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .product-name {
+                font-size: 1.6rem;
+            }
+            .product-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE ABERTURA (SUSPENSE) -->
+    <div id="splash-screen">
+        <p class="suspense-text">Onde o requinte clássico francês encontra a força terracota da Chapada Diamantina.</p>
+        <p class="suspense-subtext">Prepare-se para o invisível.</p>
+        <button class="enter-btn" onclick="revealSite()">Descubra Lallettre</button>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL DO SITE -->
+    <main id="main-content">
+        
+        <!-- SEÇÃO HERO / LOGOMARCA REVELADA -->
+        <section class="hero-section" id="inicio">
+            <div class="logo-container" id="main-logo">
+                <img src="LOGO LALLETTRE 2.png" alt="Lallettre Logo">
+            </div>
+            <p class="hero-tagline" id="main-tagline">Haute Parfumerie</p>
+            <div class="scroll-indicator">Role para explorar</div>
+        </section>
+
+        <!-- SEÇÃO DE PRODUTOS -->
+        <section class="products-section" id="colecao">
+            <h2 class="section-title">A Coleção</h2>
+            
+            <div class="product-grid">
+                
+                <!-- PRODUTO 1: Lallettre 701 -->
+                <div class="product-row">
+                    <div class="product-image">
+                        <img src="Gemini_Generated_Image_ (1).png" alt="Lallettre 701">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-number">701</div>
+                        <h3 class="product-name">Lallettre 701</h3>
+                        <p class="product-description">
+                            Uma explosão de magnetismo e luz. Capturando a névoa dourada e o calor sofisticado que envolve a pele, o 701 é a expressão máxima do luxo sob medida. Uma alquimia rara feita para deixar um rastro inesquecível.
+                        </p>
+                        <a href="https://wa.me/5577981587507?text=Olá! Gostaria de saber mais sobre o Lallettre 701." target="_blank" class="product-cta">Adquirir Fragrância</a>
+                    </div>
+                </div>
+
+                <!-- PRODUTO 2: Lallettre 802 -->
+                <div class="product-row">
+                    <div class="product-image">
+                        <img src="Gemini_Generated_Image_.png" alt="Lallettre 802">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-number">802</div>
+                        <h3 class="product-name">Lallettre 802</h3>
+                        <p class="product-description">
+                            <em>"Marque presença, deixe memória."</em> O perfeito equilíbrio entre o mistério da noite profunda e a sofisticação atemporal. Uma silhueta enigmática traduzida em notas marcantes de elegância e poder absoluto.
+                        </p>
+                        <a href="https://wa.me/5577981587507?text=Olá! Gostaria de saber mais sobre o Lallettre 802." target="_blank" class="product-cta">Adquirir Fragrância</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RODAPÉ E CONTATOS -->
+        <footer>
+            <div class="footer-logo">
+                <img src="LOGO LALLETTRE 2.png" alt="Lallettre">
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-item">
+                    <span>E-mail: </span>
+                    <a href="mailto:lallettre@gmail.com">lallettre@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>Telefone: </span>
+                    <a href="tel:77981587507">(77) 98158-7507</a>
+                </div>
+            </div>
+
+            <a href="https://wa.me/5577981587507" target="_blank" class="whatsapp-footer-btn">
+                Atendimento Exclusivo via WhatsApp
+            </a>
+
+            <p class="copyright">&copy; 2026 Lallettre. Todos os direitos reservados.</p>
+        </footer>
+
+    </main>
+
+    <!-- INTERAÇÕES JAVASCRIPT -->
+    <script>
+        function revealSite() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+
+            const mainContent = document.getElementById('main-content');
+            mainContent.style.opacity = '1';
+
+            setTimeout(() => {
+                document.getElementById('main-logo').classList.add('reveal');
+                document.getElementById('main-tagline').classList.add('reveal');
+            }, 400);
+        }
+    </script>
+</body>
+</html>
