@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/crm",
+      "destination": "https://crmlallettre.vercel.app"
+    },
+    {
+      "source": "/crm/:match*",
+      "destination": "https://crmlallettre.vercel.app/:match*"
+    },
+    {
+      "source": "/CRM",
+      "destination": "https://crmlallettre.vercel.app"
+    },
+    {
+      "source": "/CRM/:match*",
+      "destination": "https://crmlallettre.vercel.app/:match*"
+    }
+  ]
+}
